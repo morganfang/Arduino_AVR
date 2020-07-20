@@ -26,7 +26,7 @@ void timer1_fast_pwm(){
   TCCR1B = 0;           // cleaer TCCR1B
   TCNT1 = 0;            // clear TCNT1
 
-  TCCR1A |= (1<<COM1A0)|(1<<COM1B1);                  // OCR1A as toggle, OCR1B as clear
+  TCCR1A |= (1<<COM1A0)|(1<<COM1B1);                  // OCR1A as toggle, OCR1B as clear/non-inverint mode
 
   // Timer1 Fast PWM OCR1A Mode resilution WGM[13:10]=1111
   TCCR1A |= (1<<WGM11)|(1<<WGM10);
