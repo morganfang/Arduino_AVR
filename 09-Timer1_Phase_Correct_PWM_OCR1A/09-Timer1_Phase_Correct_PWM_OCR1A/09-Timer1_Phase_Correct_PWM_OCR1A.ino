@@ -27,7 +27,7 @@ void timer1_phase_correct_PWM_OCR1A_mode(){
   TCNT1 = 0;                  // clear TCNT1
 
   // set [COM1A1/COM1A0] = 01  "Toggle mode"
-  // set  [COM1B1/COM1B0] = 10 "Clear/non-inverting mode"
+  // set [COM1B1/COM1B0] = 10 "Clear OC1A/OC1B on Compare Match when up-counting,Set OC1A/OC1B on Compare Match when downcounting.”
   // set phase correct PWM OCR1A , WGM[13:10]=1011
   // prescaller 1 CS[12:10]=001
   
