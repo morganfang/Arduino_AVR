@@ -23,7 +23,8 @@ void timer1_phase_correct_PWM_mode(){
   TCCR1A = 0;                 // clear TCCR1A
   TCCR1B = 0;                 // clear TCCR1B
   TCNT1 = 0;                  // clear TCNT1
-  // set compare output mode as "Clear/non-inverting mode" [COM1A1/COM1B1][COM1A0/COM1B0] = 10
+  // set compare output mode "Clear OC1A/OC1B on Compare Match when up-counting, Set OC1A/OC1B on Compare Match when downcounting.”
+  // [COM1A1/COM1B1][COM1A0/COM1B0] = 10
   // set phase correct PWM, 8-bit mode WGM[13:10]=0001
   // prescaller 8 CS[12:10]=010
   
