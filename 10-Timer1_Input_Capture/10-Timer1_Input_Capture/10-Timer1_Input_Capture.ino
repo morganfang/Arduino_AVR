@@ -61,7 +61,7 @@ void timer2_fast_pwm(){
 }
 
 volatile unsigned int last_time = 0, current_time = 0;      // store time-stamp
-volatile long period = 0,  positive_cycle_width = 0;
+volatile unsigned long period = 0,  positive_cycle_width = 0;
 volatile boolean capture_flag = 0;                          // set 1, capture positive cycle finished
 volatile unsigned int overflow_cnt = 0;                     // count overflow
 
@@ -78,7 +78,7 @@ ISR(TIMER1_CAPT_vect){
   
   if(capture_flag){
     // second rising edge
-	  period =  positive_cycle_width + current_time - last_time + (overflow_cnt << 16);
+    period =  positive_cycle_width + current_time - last_time + (overflow_cnt << 16);
     TIMSK1 &= ~(1<<ICIE1)|~(1<<TOIE1);                   // disable input capture
   }
   
@@ -126,11 +126,13 @@ int main(){
 
   while(1){
     if(capture_flag){
+    _delay_ms(3000);                // delay 3 second
+    
     Serial.println();
     Serial.println();
 
-    Serial.print("Pulse_width =");
-    Serial.println( positive_cycle_width);
+    Serial.print("positive_cycle_width = ");
+    Serial.println(positive_cycle_width);
     Serial.print("Period = ");
     Serial.println(period);
     
@@ -138,10 +140,9 @@ int main(){
     Serial.print((F_CPU / (float)period));
     Serial.println(" Hz");
     Serial.print("Duty cycle : ");
-    Serial.print(100*((float) positive_cycle_width / (float)period));
+    Serial.print(((float)positive_cycle_width / (float)period)*100);
     Serial.println(" %");
     
-    _delay_ms(3000);                // delay 3 second
     capture_flag = 0;               // clear variable
     overflow_cnt = 0;               // clear variable
     timer1_capture();               // restart input capture
